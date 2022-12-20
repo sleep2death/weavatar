@@ -1,0 +1,24 @@
+<!-- index.wxml -->
+<view class="container h-full">
+    <!-- error info -->
+    <view wx:if="{{$g.err !== ''}}" class="flex-row justify-center mt-24">
+        <van-empty image="network" description="{{$g.err}}">
+            <van-button type="default" class="mt-4" icon="replay" bind:click="onRetry">
+                点击重试
+            </van-button>
+        </van-empty>
+    </view>
+    <view wx:else class="flex flex-col h-full">
+        <!-- <van-steps steps="{{ $data.steps }}" active="{{ $data.active }}" /> -->
+        <view class="flex flex-row justify-center">
+            <van-image width="280" fit="widthFix" src="../../../../assets/images/logo.png" />
+        </view>
+        <view class="text-sm flex flex-row justify-center text-gray-400 mt-2">
+            {{$g.text.welcome.subtitle}}
+        </view>
+        <view class="grow mt-4">{{$g.text.welcome.content}}</view>
+        <view class="text-sm flex flex-row justify-center text-gray-400 mb-16">
+            <van-button size="large" bind:click="onNext">{{$g.text.welcome.nextButton}}</van-button>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@vant/weapp": "^1.10.10",
+    "mini-stores": "^1.0.5"
+  }
+}

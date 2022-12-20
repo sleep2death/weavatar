@@ -1,0 +1,14 @@
+<view class="container h-full">
+    <view class="text-center text-2xl">{{$g.text.selection.title}}</view>
+    <view class="flex flex-col grow">
+        <view class="flex flex-col">
+            <view class="">Good Example</view>
+            <view class="">Bad Example</view>
+        </view>
+    </view>
+    <view class="text-sm flex flex-row justify-center text-gray-400 mb-16">
+        <van-button bind:click="onSelectPhoto" color="{{$g.colors.yellow}}" type="default">
+            {{$g.text.selection.button}}
+        </van-button>
+    </view>
+</view>
