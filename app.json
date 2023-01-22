@@ -1,5 +1,9 @@
 {
-  "pages": ["pages/index/index", "pages/photo-selection/index"],
+  "pages": [
+    "pages/index/index",
+    "pages/photo-selection/index",
+    "pages/process/index"
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -12,6 +16,8 @@
     "van-button": "@vant/weapp/button/index",
     "van-steps": "@vant/weapp/steps/index",
     "van-empty": "@vant/weapp/empty/index",
-    "van-image": "@vant/weapp/image/index"
+    "van-image": "@vant/weapp/image/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-loading": "@vant/weapp/loading/index"
   }
 }

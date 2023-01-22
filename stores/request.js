@@ -62,3 +62,35 @@ export function GET(relativeUrl, token) {
     });
   });
 }
+
+export function UPLOAD_PHOTO(file, formData, token) {
+  const header = {};
+  if (token && token !== "") {
+    // Authorization: "Bearer <insert_your_JWT_here>"
+    header["Authorization"] = `Bearer ${token}`;
+  }
+
+  return new Promise((resolve, reject) => {
+    wx.uploadFile({
+      url: `https://diff.minish-cap.com/api/task/init`,
+      header: header,
+      filePath: file,
+      name: "photo",
+      formData: formData,
+      dataType: "json",
+      responseType: "text",
+      complete: (res) => {
+        if (res.statusCode === 200) {
+          resolve(res);
+        } else {
+          if (res.data && res.data.msg) {
+            res.errMsg = res.data.msg;
+          } else if (res.statusCode === 404) {
+            res.errMsg = "err.page_not_found";
+          }
+          reject(res);
+        }
+      },
+    });
+  });
+}

@@ -14,12 +14,15 @@ class Store {
       welcome: {
         title: "机车头",
         subtitle: "机车头，一款古怪难用的AI头像生成器",
-        content: "content message",
+        content: "内容",
         nextButton: "立刻开始",
       },
       selection: {
-        title: "选择照片",
-        button: "请选择 1 张自拍照",
+        title: "上传照片",
+        button: "选择1张自拍",
+      },
+      process: {
+        title: "处理照片",
       },
       nextButton: "下一步",
     },

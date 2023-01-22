@@ -1,0 +1,10 @@
+<view class="container">
+    <view class="text-center text-2xl">{{$g.text.process.title}}</view>
+    <van-divider contentPosition="center">
+        <van-loading wx:if="{{statusText === '处理中'}}" class="mr-2" size="22px" type="spinner" />
+        {{statusText}}
+    </van-divider>
+    <view wx:if="{{task && task.images}}" class="grid grid-cols-2">
+        <van-image class="half-screen-width-height" wx:for="{{task.images}}" wx:key="item" width="50vw" height="50vw" fit="widthFix" src="{{item}}" data-index="{{index}}" bind:tap="onImageTapped" />
+    </view>
+</view>
