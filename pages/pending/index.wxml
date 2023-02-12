@@ -1,0 +1,10 @@
+<view class="container h-full">
+    <view class="text-center text-2xl">{{$g.text.pending.title}}</view>
+    <view class="flex flex-col grow"></view>
+    <view class="text-sm flex flex-row justify-center text-gray-400 mb-16 px-4">
+        <van-button wx:if="{{$p.fileList.length >= $p.count}}" bind:click="onNext" color="{{$g.colors.green}}" type="default">
+            {{$g.text.nextButton}}
+        </van-button>
+    </view>
+    <!-- <van-uploader file-list="{{ fileList }}" deletable="{{ true }}" /> -->
+</view>

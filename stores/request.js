@@ -72,7 +72,7 @@ export function UPLOAD_PHOTO(file, formData, token) {
 
   return new Promise((resolve, reject) => {
     wx.uploadFile({
-      url: `https://diff.minish-cap.com/api/task/init`,
+      url: `https://diff.minish-cap.com/api/training/upload`,
       header: header,
       filePath: file,
       name: "photo",

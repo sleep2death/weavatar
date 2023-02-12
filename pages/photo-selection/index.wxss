@@ -1,3 +1,9 @@
-page {
-  
+.img {
+  width: calc(100vw / 3);
+  height: calc(100vw / 3);
+}
+
+.delete-button {
+  width: 24px;
+  height: 21px;
 }

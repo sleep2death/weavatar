@@ -8,7 +8,8 @@ class Store {
   data = {
     err: "",
     colors: {
-      yellow: "rgb(0, 149, 246)",
+      blue: "rgb(0, 149, 246)",
+      green: "#22c55e",
     },
     text: {
       welcome: {
@@ -19,7 +20,13 @@ class Store {
       },
       selection: {
         title: "上传照片",
-        button: "选择1张自拍",
+        selection: "请选择 12 张自拍",
+        next: "上传",
+      },
+      pending: {
+        title: "确认支付",
+        selection: "请选择 12 张自拍",
+        next: "上传",
       },
       process: {
         title: "处理照片",
@@ -64,7 +71,7 @@ class Store {
     });
   }
   error(msg, err) {
-    console.error(err);
+    // console.error(err);
     wx.showToast({
       title: msg,
       icon: "error",

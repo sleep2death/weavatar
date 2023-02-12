@@ -1,9 +1,19 @@
 import create from "mini-stores";
 import globalStore from "../../stores/global-store";
-import { UPLOAD_PHOTO } from "../../stores/request";
+import photoStore from "../../stores/photo-store";
+
+import {
+  initFaceDetect,
+  faceDetect,
+  stopFaceDetect,
+} from "../../utils/faceDetect";
+
+const canvasId = "canvas2d";
+const maxCanvasWidth = 512;
 
 const stores = {
   $g: globalStore, // 同上
+  $p: photoStore,
 };
 
 create.Page(stores, {
@@ -11,63 +21,60 @@ create.Page(stores, {
     tempFilePath: "",
   },
 
-  onLoad(options) {},
+  onReady() {
+    photoStore.initSession();
+  },
+
+  onUnload() {
+    photoStore.destroySession();
+  },
 
   onRetry() {},
-  onNext() {
-    // wx.navigateTo({
-    //   url: "/pages/photo-selection/index",
-    // });
+  async onNext() {
+    // await photoStore.detectFace();
+    wx.navigateTo({
+      url: "/pages/pending/index",
+    });
   },
-  async onSelectPhoto() {
-    try {
-      const cm = await wx.chooseMedia({
-        camera: "front",
-        count: 1,
-        mediaType: ["image"],
-      });
 
-      const tempFile = cm.tempFiles[0];
-      const imgInfo = await wx.getImageInfo({
-        src: tempFile.tempFilePath,
-      });
-      let { width, height } = imgInfo;
-      if (tempFile.size > 2000000) {
-        throw new Error("err.chooseMedia.too_big");
-      }
+  async onSelectPhoto() {
+    await photoStore.chooseMedia();
+  },
+
+  onPreviewSelect(evt) {
+    wx.showModal({
+      title: "是否取消选择该照片",
+      content: "",
+      showCancel: true,
+      cancelText: "否",
+      cancelColor: "#000000",
+      confirmText: "是",
+      success: (result) => {
+        if (result.confirm) {
+          photoStore.deleteFile(evt.currentTarget.dataset.index);
+        }
+      },
+      fail: () => {},
+      complete: () => {},
+    });
+  },
+
+  async onUpload() {
+    try {
       wx.showLoading({
-        title: "上传中",
+        title: "正在上传",
         mask: true,
       });
-
-      const res = await UPLOAD_PHOTO(
-        tempFile.tempFilePath,
-        { width: width, height: height },
-        globalStore.token
-      );
-      const json = JSON.parse(res.data);
-
-      wx.hideLoading();
-      wx.navigateTo({
-        url: "/pages/process/index?id=" + json.task,
-      });
-    } catch (err) {
-      if (err.errMsg && err.errMsg === "chooseMedia:fail cancel") {
-        console.log("user canceled");
-      } else if (err.toString() === "Error: err.chooseMedia.too_big") {
+      await photoStore.upload(globalStore.token);
+    } catch (e) {
+      if (e.statusCode && e.statusCode !== 200) {
         wx.showToast({
-          title: "照片不能大于2M",
+          title: "网络出错",
           icon: "error",
-          duration: 1500,
         });
-      } else {
-        wx.showToast({
-          title: "照片上传失败",
-          icon: "error",
-          duration: 1500,
-        });
-        console.error(err);
       }
+    } finally {
+      wx.hideLoading();
     }
   },
 });
